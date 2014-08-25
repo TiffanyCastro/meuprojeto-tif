@@ -1,0 +1,48 @@
+   Scanner entrada = new Scanner (System.in);
+        Calculadora calc = new Calculadora ();
+        int resultado = 0 , op = 0, x = 0;
+        calc.atribuirA(10);
+        calc.atribuirB (5);
+        do {
+        System.out.println ("1-somar, 2-subtrair, 3-multiplicar ou 4-dividir, 5-sair ");
+        op = entrada.nextInt();
+        if (op == 1 ){
+            resultado = calc.somar();
+        } else if (op ==2 ){
+            resultado = calc.subtrair();
+                    }else if (op == 3 ){
+                        resultado = calc.multiplicar ();
+                    } else if (op == 4 ){
+                        resultado = calc.dividir();
+                    }
+        System.out.println (resultado );
+        x ++;
+    }while (op != 5 );
+    
+  int a , b ;
+   void atribuirA (int valor )
+   {
+       a = valor ;
+   }
+   void atribuirB (int valor )
+   {
+       b = valor ;
+   }
+   int somar ()
+   {
+       return a + b ;
+   }
+         int subtrair()
+         {
+             return a - b ;
+         }
+         int multiplicar ()
+         {
+             return a * b ;
+         }
+         
+         int dividir ()
+         {
+             return a / b ;
+         } 
+}
