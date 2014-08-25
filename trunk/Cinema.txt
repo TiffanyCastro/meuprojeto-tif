@@ -1,0 +1,79 @@
+   String nome , duracao, genero , atores , classificacao, idade , idadeteste, classi;
+        Filme f = new Filme ();
+        nome = JOptionPane.showInputDialog(" Qual o filme ? ");
+        f.atribuirNome(nome);
+        JOptionPane.showMessageDialog(null, f.retornarNome());
+        duracao = JOptionPane.showInputDialog("Qual a duraçao do filme ?");
+        f.atribuirDuracao (duracao);
+        JOptionPane.showMessageDialog(null, f.retornarDuracao());
+        genero = JOptionPane.showInputDialog("Qual o genero do filme ?");
+        f.atribuirGenero (genero);
+        JOptionPane.showMessageDialog(null, f.retornarGenero());
+         atores= JOptionPane.showInputDialog("Atores do filme ?");
+        f.atribuirAtores (atores);
+        JOptionPane.showMessageDialog(null, f.retornarAtores());
+         classificacao = JOptionPane.showInputDialog("Qual a classificação do filme ?");
+        f.atribuirClassificacao (classificacao);
+        JOptionPane.showMessageDialog(null, f.retornarClassificacao());
+        idade = JOptionPane.showInputDialog ("informe sua idade");
+        if(f.id(idade)==true)
+        {
+            JOptionPane.showMessageDialog(null, "pode ver o filme");
+        }else 
+            JOptionPane.showMessageDialog(null, "nao pode ver ");
+       
+   String nome ;
+   String duracao;
+   String classificacao ;
+   String genero ;
+   String atores ;
+  
+    void atribuirNome (String valor )
+    {
+        nome = valor;
+    }
+    
+    String retornarNome()
+    {
+        return nome;
+    }
+    void atribuirDuracao (String tempo)
+    {
+        duracao = tempo;
+    }
+    String retornarDuracao ()
+    {
+        return duracao;
+    }
+    void atribuirGenero (String como)
+    {
+        genero = como;
+    }
+    String retornarGenero ()
+    {
+        return genero ;
+    }
+    void atribuirAtores (String ator)
+    {
+        atores = ator ;
+    }
+    String retornarAtores ()
+    {
+        return atores ;
+    }
+   void atribuirClassificacao (String classi)
+   {
+       classificacao = classi;
+   }
+  String retornarClassificacao ()
+  {
+      return classificacao;
+  }
+ 
+   
+  boolean id (String idade){
+  if  (Integer.parseInt(idade) >= Integer.parseInt(classificacao)){
+  return true ;
+  }else 
+  return false;
+   
