@@ -1,0 +1,86 @@
+ public static void main(String[] args) {
+      Informaçoeshotel h = new Informaçoeshotel ();
+    
+        JOptionPane.showMessageDialog(null,""+ h.retornarnome()+"\n Endereço: "+h.retornarlocalizacao()+
+                "\n Telefone: "+h.retornartelefone()+"\n Valor da diaria: "+h.retornardiaria()+ 
+                "Reais"+"\n Ano de fundação: "+h.retornaranofund());
+        JOptionPane.showMessageDialog(null,""+ h.retornainformacao());
+        h.atribuirdias(Integer.parseInt(JOptionPane.showInputDialog("Quantos dias você vai ficar no hotel:")));
+        JOptionPane.showMessageDialog(null,"O total de diarias é:" +h.retornax()+"\nEM EUROS" +h.retornaeuro()+
+                "\nEM DOLAR:"+h.retornadolar());
+    }
+
+CLASSE DE INFORMAÇOES
+public class Informaçoeshotel {
+     String nome = "Hotel Salvatore's", localizacao = "Central Park", telefone ="58-12345678", anofund ="2000";
+    float diaria = 25, x,y,z;
+    int dias = 0 ;
+    
+    void atribuirnome(String valor){
+        nome = valor;
+      }
+    String retornarnome (){
+        return nome;
+    }
+    void atribuirlocalizacao(String valor){
+        localizacao = valor;
+      }
+    String retornarlocalizacao (){
+        return localizacao;
+    }
+    void atribuirtelefone (String valor){
+        telefone = valor;
+      }
+    String retornartelefone (){
+        return telefone;
+    }
+    void atribuiranofund(String valor){
+        anofund = valor;
+      }
+    String retornaranofund (){
+        return anofund;
+    }
+    void atribuirdiaria(float valor){
+        diaria = valor;
+      }
+    float retornardiaria (){
+        return diaria;
+    }
+    void atribuirdias(int valor){
+        dias = valor;
+      }
+    int retornardias (){
+        return dias;
+    }
+  
+    
+   float retornax (){
+       if(dias < 7){
+           x = (diaria * dias );
+           return x;
+       }else
+       if (dias >= 7 || dias <= 10){
+     x =(float) ((dias * diaria ) - ((dias * diaria) * 0.1));
+     return x ;
+}else 
+    if (dias > 10){
+    x =(float) ((dias * diaria) - ((dias * diaria) * 0.3));
+    } return x ;
+    
+   }  
+  
+   float retornaeuro(){
+       
+       y = x * 3;
+       return y;
+   }
+   float retornadolar(){
+       z  = x * 2;
+       return z;
+   }
+   
+   String retornainformacao(){
+       return "Até 6 dias você paga a tarifa normal  \n de 7 à 10 dias você tem 10% de desconto   \n mais de 10 dias 30% de desconto";
+   }
+   
+   
