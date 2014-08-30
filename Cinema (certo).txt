@@ -1,0 +1,198 @@
+String nome , duracao, genero , atores , classificacao, idade , idadeteste, classi;
+         String ator ,datadenasc ,cache ,nacionalidade ,vencedor, totaldef,filmes ,ganhos;
+         Filme f = new Filme ();
+         Ator a = new Ator ();
+        nome = JOptionPane.showInputDialog(" Qual o filme ? ");
+        f.atribuirNome(nome);
+        JOptionPane.showMessageDialog(null, f.retornarNome());
+        
+        genero = JOptionPane.showInputDialog("Qual o genero do filme ?");
+         f.atribuirGenero(genero);
+             JOptionPane.showMessageDialog(null, f.retornarGenero());
+        duracao = JOptionPane.showInputDialog("Qual a duraçao do filme ?");
+    
+        if (f.dur(duracao)== true)
+        {
+            JOptionPane.showMessageDialog(null, "longa metragem ");
+        }else
+            JOptionPane.showMessageDialog(null, " curta metragem ");
+        
+         atores= JOptionPane.showInputDialog("Atores do filme ?");
+        f.atribuirAtores (atores);
+        JOptionPane.showMessageDialog(null, f.retornarAtores());
+         classificacao = JOptionPane.showInputDialog("Qual a classificação do filme ?");
+        f.atribuirClassificacao (classificacao);
+        JOptionPane.showMessageDialog(null, f.retornarClassificacao());
+        idade = JOptionPane.showInputDialog ("informe sua idade");
+        if(f.id(idade)==true)
+        {
+            JOptionPane.showMessageDialog(null, "pode ver o filme");
+        }else 
+            JOptionPane.showMessageDialog(null, "nao pode ver ");
+         ator = JOptionPane.showInputDialog(" Qual o nome do ator ");
+        a.atribuirAtor(ator);
+        JOptionPane.showMessageDialog(null, a.retornarAtor());
+        datadenasc = JOptionPane.showInputDialog(" Qual a data de nascimento do ator do filme? ");
+        a.atribuirDatadenasc(datadenasc);
+        JOptionPane.showMessageDialog(null, a.retornarDatadenasc());
+        cache = JOptionPane.showInputDialog(" Qual o cache do ator? ");
+        a.atribuirCache(cache);
+        JOptionPane.showMessageDialog(null, a.retornarCache());
+        nacionalidade = JOptionPane.showInputDialog(" Qual a nacionalidade do ator ? ");
+        a.atribuirNacionalidade(nacionalidade);
+        JOptionPane.showMessageDialog(null, a.retornarNacionalidade());
+        totaldef = JOptionPane.showInputDialog(" Qual o total de filmes desse ator? ");
+        a.atribuirTotaldef(totaldef);
+        JOptionPane.showMessageDialog(null, a.retornarTotaldef());
+        filmes = JOptionPane.showInputDialog(" Quantos filmes ele fez esse ano? ");
+        a.atribuirFilmes(filmes);
+        JOptionPane.showMessageDialog(null, a.retornarFilmes());
+        ganhos = JOptionPane.showInputDialog(" Qual os ganhos do ator nesse ultimo ano? ");
+        JOptionPane.showMessageDialog(null, a.retornarGanhos());
+          vencedor = JOptionPane.showInputDialog ("o ator ja ganhou o oscar. digite 1 para sim e 2 p nao");
+                
+                
+        if(a.winner(vencedor)== true)
+        {
+            JOptionPane.showMessageDialog(null, "ele ja venceu o oscar");
+        }else 
+            JOptionPane.showMessageDialog(null,"ele nunca venceu o oscar");
+        
+    }
+
+
+CLASSE FILME 
+String nome ;
+   String duracao;
+   String classificacao ;
+   String genero ;
+   String atores ;
+  
+    void atribuirNome (String valor )
+    {
+        nome = valor;
+    }
+    
+    String retornarNome()
+    {
+        return nome;
+    }
+    void atribuirDuracao (String tempo)
+    {
+        duracao = tempo;
+    }
+    String retornarDuracao ()
+    {
+        return duracao;
+    }
+    void atribuirGenero (String como)
+    {
+        genero = como;
+    }
+    String retornarGenero ()
+    {
+        return genero ;
+    }
+    void atribuirAtores (String ator)
+    {
+        atores = ator ;
+    }
+    String retornarAtores ()
+    {
+        return atores ;
+    }
+   void atribuirClassificacao (String classi)
+   {
+       classificacao = classi;
+   }
+  String retornarClassificacao ()
+  {
+      return classificacao;
+  }
+ 
+   
+  boolean id (String idade){
+  if  (Integer.parseInt(idade) >= Integer.parseInt(classificacao)){
+  return true ;
+  }else 
+  return false;
+   
+}
+  boolean dur (String duracao){
+     if (Integer.parseInt(duracao) > 60 ){
+         return true ;
+     }else
+         return false;
+  }
+}
+
+
+CLASSE ATOR
+ String ator ;
+   String datadenasc;
+   String cache ;
+   String nacionalidade ;
+   String vencedor;
+   String totaldef;
+   String filmes ;
+   String ganhos;
+      void atribuirAtor (String valor )
+    {
+        ator = valor;
+    }
+    
+    String retornarAtor()
+    {
+        return ator;
+    }
+    void atribuirDatadenasc (String tempo)
+    {
+        datadenasc = tempo;
+    }
+    String retornarDatadenasc ()
+    {
+        return datadenasc;
+    }
+    void atribuirCache (String como)
+    {
+        cache = como;
+    }
+    String retornarCache ()
+    {
+        return cache ;
+    }
+    void atribuirNacionalidade (String ator)
+    {
+       nacionalidade = ator ;
+    }
+    String retornarNacionalidade ()
+    {
+        return nacionalidade ;
+    }
+   void atribuirTotaldef (String classi)
+   {
+       totaldef = classi;
+   }
+  String retornarTotaldef ()
+  {
+      return totaldef ;
+  }
+   void atribuirFilmes (String classi)
+   {
+       filmes = classi;
+   }
+  String retornarFilmes ()
+  {
+      return filmes ;
+  }
+  boolean winner (String vencedor){
+       if (vencedor == "sim"){
+           return true;   
+       }else
+       
+         return false;
+}
+   String retornarGanhos ()
+  {
+      return ganhos ;
+  } 
