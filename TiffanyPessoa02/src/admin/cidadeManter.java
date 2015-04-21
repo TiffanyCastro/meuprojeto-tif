@@ -1,6 +1,7 @@
 
 package admin;
 
+import dao.CidadeDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -10,9 +11,11 @@ public class cidadeManter extends javax.swing.JFrame {
      List<Cidade> lista;
     Integer posicao;
     public cidadeManter() {
-        initComponents();
-     lista = new ArrayList<Cidade>();
+        initComponents();  
+        CidadeDAO dao = new CidadeDAO();
+        lista = dao.listar();
         posicao = 0;
+      
     }
 
     @SuppressWarnings("unchecked")
@@ -34,6 +37,7 @@ public class cidadeManter extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -162,6 +166,13 @@ public class cidadeManter extends javax.swing.JFrame {
                     .addComponent(jButton8)))
         );
 
+        jButton9.setText("Listagem");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -183,6 +194,10 @@ public class cidadeManter extends javax.swing.JFrame {
                             .addComponent(codigo)
                             .addComponent(nome, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton9)
+                .addGap(133, 133, 133))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,9 +212,10 @@ public class cidadeManter extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addGap(9, 9, 9)
+                .addComponent(jButton9))
         );
 
         pack();
@@ -220,35 +236,50 @@ public class cidadeManter extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
          Cidade ci = new Cidade();
          
-        if(nome.getText().isEmpty()|| codigo.getText().isEmpty())
+        if(nome.getText().isEmpty())
         {
             JOptionPane.showMessageDialog(rootPane, "todos campos obrigatorios");
+            
         }
-        else
+        else 
         {
-            boolean deu= false;
-            try {
-                   ci.setCodigo(Integer.parseInt(codigo.getText()));
-                    deu= true;
-            } catch (Exception e) 
-            {
-                deu= false;
-                JOptionPane.showMessageDialog(rootPane, "Codigos devem ser numeros");
-            }
-        if(deu= true)
-        {
-        ci.setCodigo(Integer.parseInt(codigo.getText()));
-        ci.setNome(nome.getText());
-        
-         lista.add(ci);
-        JOptionPane.showMessageDialog(rootPane, "Cadastrado com sucesso");
-        }
-        }
+      ci.setNome(nome.getText());
+     ci.setCodigo(Integer.parseInt(codigo.getText()));
+     
+      CidadeDAO  dao = new CidadeDAO();
+      //chama o inserir
+      boolean deucerto= dao.inserir(ci);
+      if(deucerto==true)
+      {
+          JOptionPane.showMessageDialog(rootPane, "Cadastrado com sucesso");
+      }
+      else
+      {
+          JOptionPane.showMessageDialog(rootPane, "Erro ao cadastrar");
+      }
+      lista.add(ci); 
+      Limpar();
+         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       lista.remove(lista.get(posicao));
-        Limpar();
+       if (codigo.getText().isEmpty()== false){
+          CidadeDAO dao = new CidadeDAO();
+         
+         Boolean deucerto = dao.excluir(lista.get(posicao));
+         if(deucerto == true)
+         {
+             JOptionPane.showMessageDialog(rootPane, "excluido com sucesso");
+             
+         lista= dao.listar();
+           Limpar();
+         }
+         else {
+             JOptionPane.showMessageDialog(rootPane, "erro ao excluir");
+         }
+        
+        }
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -324,6 +355,12 @@ public class cidadeManter extends javax.swing.JFrame {
      
     }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        cidadeListar tela = new cidadeListar();
+      tela.setVisible(true);
+     
+    }//GEN-LAST:event_jButton9ActionPerformed
       private void Limpar (){
       codigo.setText(null);
        nome.setText(null);
@@ -374,6 +411,7 @@ public class cidadeManter extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -1,5 +1,6 @@
 package admin;
 
+import dao.JogadorDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -12,7 +13,9 @@ public class JogadorTela extends javax.swing.JFrame {
     Integer posicao;
     public JogadorTela() {
         initComponents();
-        lista = new ArrayList<Jogador>();
+        //buscar a lista no banco 
+        JogadorDAO dao = new JogadorDAO();
+        lista = dao.listar();
         posicao = 0;
         
     }
@@ -38,6 +41,7 @@ public class JogadorTela extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -180,16 +184,12 @@ public class JogadorTela extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Jogador");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(65, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,11 +204,23 @@ public class JogadorTela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton9)
                 .addGap(34, 34, 34))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(188, 188, 188)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addComponent(jLabel4)
+                .addGap(8, 8, 8)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -233,14 +245,22 @@ public class JogadorTela extends javax.swing.JFrame {
 
     private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
         if (nome.getText().isEmpty()== false){
-            if (lista.size() >= 0){
-           lista.remove(lista.get(posicao));
+          JogadorDAO dao = new JogadorDAO();
+         
+         Boolean deucerto = dao.excluir(lista.get(posicao));
+         if(deucerto == true)
+         {
+             JOptionPane.showMessageDialog(rootPane, "excluido com sucesso");
+             
+         lista= dao.listar();
            Limpar();
-           posicao = 0 ;
-          
-           
-            }
-        }  
+         }
+         else {
+             JOptionPane.showMessageDialog(rootPane, "erro ao excluir");
+         }
+        
+        }
+        
         
  
        
@@ -323,7 +343,18 @@ public class JogadorTela extends javax.swing.JFrame {
       jogador.setNome(nome.getText());
       jogador.setSenha(senha.getText());
       jogador.setEmail(email.getText());
-      lista.add(jogador);
+      JogadorDAO  dao = new JogadorDAO();
+      //chama o inserir
+      boolean deucerto= dao.inserir(jogador);
+      if(deucerto==true)
+      {
+          JOptionPane.showMessageDialog(rootPane, "Cadastrado com sucesso");
+      }
+      else
+      {
+          JOptionPane.showMessageDialog(rootPane, "Erro ao cadastrar");
+      }
+      lista.add(jogador); 
       Limpar();
         }
 
@@ -419,6 +450,7 @@ public class JogadorTela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField nome;

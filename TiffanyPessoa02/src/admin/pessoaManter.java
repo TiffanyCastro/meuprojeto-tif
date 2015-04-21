@@ -1,6 +1,7 @@
 
 package admin;
 
+import dao.PessoaDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -13,8 +14,10 @@ public class pessoaManter extends javax.swing.JFrame {
     
     public pessoaManter() {
         initComponents();
-        lista = new ArrayList<Pessoa>();
+          PessoaDAO dao = new PessoaDAO();
+        lista = dao.listar();
         posicao = 0;
+      
         
         
     }
@@ -284,34 +287,50 @@ public class pessoaManter extends javax.swing.JFrame {
 
     private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
         Pessoa item = new Pessoa();
-        if(nome.getText().isEmpty()|| codigo.getText().isEmpty()|| sexo.getSelectedIndex()==0)
+        if(nome.getText().isEmpty() || sexo.getSelectedIndex()==0)
         {
-            JOptionPane.showMessageDialog(rootPane, "todos campos obrigatorios");
+              JOptionPane.showMessageDialog(null, "Preencha todos os campos! ");
+            
         }
-        else
+        else 
         {
-            boolean deu= false;
-            try {
-                    item.setCodigo(Integer.parseInt(codigo.getText()));
-                    deu= true;
-            } catch (Exception e) 
-            {
-                deu= false;
-                JOptionPane.showMessageDialog(rootPane, "Codigos devem ser numeros");
-            }
-        if(deu= true)
-        {
-        item.setNome(nome.getText());
-        item.setSexo(sexo.getSelectedItem().toString());
-        lista.add(item);
-        JOptionPane.showMessageDialog(rootPane, "Cadastrado com sucesso");
-        }
+      item.setNome(nome.getText());
+//      item.setCodigo(Integer.parseInt(codigo.getText()));
+      item.setSexo(sexo.getSelectedItem().toString());
+      PessoaDAO  dao = new PessoaDAO();
+      //chama o inserir
+      boolean deucerto= dao.inserir(item);
+      if(deucerto==true)
+      {
+          JOptionPane.showMessageDialog(rootPane, "Cadastrado com sucesso");
+      }
+      else
+      {
+          JOptionPane.showMessageDialog(rootPane, "Erro ao cadastrar");
+      }
+      lista.add(item); 
+      Limpar();
         }
     }//GEN-LAST:event_cadastrarActionPerformed
 
     private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
-       lista.remove(lista.get(posicao));
-        Limpar();
+       if (codigo.getText().isEmpty()== false){
+          PessoaDAO dao = new PessoaDAO();
+         
+         Boolean deucerto = dao.excluir(lista.get(posicao));
+         if(deucerto == true)
+         {
+             JOptionPane.showMessageDialog(rootPane, "excluido com sucesso");
+             
+         lista= dao.listar();
+           Limpar();
+         }
+         else {
+             JOptionPane.showMessageDialog(rootPane, "erro ao excluir");
+         }
+        
+        }
+        
    
     }//GEN-LAST:event_excluirActionPerformed
 

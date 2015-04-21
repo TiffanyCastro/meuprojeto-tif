@@ -3,7 +3,6 @@ package modelo;
 
 public class Jogador {
     private  String nome,senha, email;    
-    
 
     public String getNome() {
         return nome;
@@ -12,6 +11,10 @@ public class Jogador {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    
+    
+
 
     public String getSenha() {
         return senha;

@@ -1,9 +1,10 @@
-
+//
 package modelo;
 
 public class Pessoa {
      private Integer codigo;
-
+     private String nome, sexo;
+  
     public Integer getCodigo() {
         return codigo;
     }
@@ -27,7 +28,7 @@ public class Pessoa {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-     private String nome, sexo;
+   
     
     
 }

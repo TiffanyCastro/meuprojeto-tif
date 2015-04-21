@@ -1,5 +1,6 @@
 package admin;
 
+import dao.PerguntaDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -10,8 +11,10 @@ public class PerguntaTela extends javax.swing.JFrame {
     Integer posicao;
     public PerguntaTela() {
         initComponents();
-        lista = new ArrayList<Pergunta>();
+        PerguntaDAO dao = new PerguntaDAO();
+        lista = dao.listar();
         posicao = 0;
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -215,6 +218,13 @@ public class PerguntaTela extends javax.swing.JFrame {
 
         jLabel9.setText("ID :");
 
+        id.setEditable(false);
+        id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -332,24 +342,13 @@ public class PerguntaTela extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
      Pergunta item = new Pergunta();
-        if(id.getText().isEmpty()|| enunciado.getText().isEmpty()|| a.getText().isEmpty() || b.getText().isEmpty()|| c.getText().isEmpty()|| d.getText().isEmpty()|| selecao.getSelectedIndex()==0 || selecaonivel.getSelectedIndex()==0 )
+        if( enunciado.getText().isEmpty()|| a.getText().isEmpty() || b.getText().isEmpty()|| c.getText().isEmpty()|| d.getText().isEmpty()|| selecao.getSelectedIndex()==0 || selecaonivel.getSelectedIndex()==0 )
         {
             JOptionPane.showMessageDialog(rootPane, "todos campos obrigatorios");
         }
         else
         {
-            boolean deu= false;
-            try {
-                    item.setId(Integer.parseInt(id.getText()));
-                    deu= true;
-            } catch (Exception e) 
-            {
-                deu= false;
-                JOptionPane.showMessageDialog(rootPane, "Codigos devem ser numeros");
-            }
-        if(deu= true)
-        {
-            
+        
          item.setEnunciado(enunciado.getText());
      item.setA(a.getText());
       item.setB(b.getText());
@@ -357,23 +356,43 @@ public class PerguntaTela extends javax.swing.JFrame {
       item.setD(d.getText());
       item.setCerta(selecao.getSelectedItem().toString());
       item.setNivel(Integer.parseInt(selecaonivel.getSelectedItem().toString()));
-       
-        lista.add(item);
-        JOptionPane.showMessageDialog(rootPane, "Cadastrado com sucesso");
-        }
-       
-        }
-       
+        
+       PerguntaDAO  dao = new PerguntaDAO();
+      //chama o inserir
+      boolean deucerto= dao.inserir(item);
+      if(deucerto==true)
+      {
+          JOptionPane.showMessageDialog(rootPane, "Cadastrado com sucesso");
+      }
+      else
+      {
+          JOptionPane.showMessageDialog(rootPane, "Erro ao cadastrar");
+      }
+      
+      lista= dao.listar();
+     
+        Limpar();
+        }  
+      
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-      if (enunciado.getText().isEmpty()== false){
-            if (lista.size() >= 0){
-           lista.remove(lista.get(posicao));
+       if (id.getText().isEmpty()== false){
+          PerguntaDAO dao = new PerguntaDAO();
+         
+         Boolean deucerto = dao.excluir(lista.get(posicao));
+         if(deucerto == true)
+         {
+             JOptionPane.showMessageDialog(rootPane, "excluido com sucesso");
+             
+         lista= dao.listar();
            Limpar();
-           posicao = 0 ;
-            }
-      }
+         }
+         else {
+             JOptionPane.showMessageDialog(rootPane, "erro ao excluir");
+         }
+        
+        }
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -425,7 +444,7 @@ public class PerguntaTela extends javax.swing.JFrame {
       posicao = 0 ;
      
      Pergunta elemento = lista.get(0);
-     id.setText(elemento.getId().toString());
+     
      enunciado.setText(elemento.getEnunciado());
      a.setText(elemento.getA());
      b.setText(elemento.getB());
@@ -433,6 +452,7 @@ public class PerguntaTela extends javax.swing.JFrame {
      d.setText(elemento.getD());
      selecao.setSelectedItem(elemento.getCerta());
      selecaonivel.setSelectedItem(elemento.getNivel());
+     id.setText(elemento.getId().toString());
      
       }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -468,7 +488,7 @@ public class PerguntaTela extends javax.swing.JFrame {
           posicao = posicao + 1;
             
            Pergunta elemento = lista.get(posicao);
-           id.setText(elemento.getId().toString());
+           
              enunciado.setText(elemento.getEnunciado());
         a.setText(elemento.getA());
         b.setText(elemento.getB());
@@ -476,7 +496,7 @@ public class PerguntaTela extends javax.swing.JFrame {
         d.setText(elemento.getD());
         selecao.setSelectedItem(elemento.getCerta());
         selecaonivel.setSelectedItem(elemento.getNivel());
-     
+     id.setText(elemento.getId().toString());
    
           } 
           else 
@@ -508,6 +528,10 @@ public class PerguntaTela extends javax.swing.JFrame {
          tela.setVisible(true);
 
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idActionPerformed
 
     
      private void Limpar (){

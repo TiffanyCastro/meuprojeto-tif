@@ -6,6 +6,7 @@
 
 package admin;
 
+import dao.PerguntaDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -22,43 +23,14 @@ public class PerguntaListar extends javax.swing.JFrame {
      */
     public PerguntaListar() {
         initComponents();
-         List <Pergunta> lista = new ArrayList <Pergunta>();
-        
-        Pergunta item = new Pergunta();
-        item.setEnunciado("Quem descobriu o Brasil ?");
-        item.setA("Eu");
-        item.setB("Renan");
-        item.setC("Pedro Alvares Cabral");
-        item.setD("Indios");
-        item.setCerta("C");
-        item.setNivel(1);
-        lista.add(item);
-        
-        
-        item= new Pergunta ();
-        item.setEnunciado("Quanto é 5 + 5 ? ");
-        item.setA("10");
-        item.setB("20");
-        item.setC("5");
-        item.setD("1");
-        item.setCerta("A");
-        item.setNivel(2);
-        lista.add(item);
-        
-        item = new Pergunta();
-        item.setEnunciado("Qual é o meu nome ? ");
-        item.setA("Sophia");
-        item.setB("Antonia");
-        item.setC("Maicon");
-        item.setD("Tiffany Linda");
-        item.setCerta("D");
-        item.setNivel(3);
-        lista.add(item);
+         PerguntaDAO dao = new PerguntaDAO();
+         List <Pergunta> lista = dao.listar();
         
         DefaultTableModel modelo= (DefaultTableModel)tabela.getModel();
         Object[] linha = new Object[modelo.getColumnCount()];
         
         for (Pergunta per : lista){
+           // linha[0]= per.getId();//
             linha[0] = per.getEnunciado();
             linha[1]= per.getA();
             linha[2] = per.getB();
