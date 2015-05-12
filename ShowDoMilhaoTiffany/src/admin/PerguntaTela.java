@@ -42,6 +42,7 @@ public class PerguntaTela extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         selecao = new javax.swing.JComboBox();
@@ -167,38 +168,48 @@ public class PerguntaTela extends javax.swing.JFrame {
             }
         });
 
+        jButton10.setText("Atualizar");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton7)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton7))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton6)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                .addComponent(jButton8)
-                .addGap(19, 19, 19))
+                .addGap(100, 100, 100)
+                .addComponent(jButton10)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jButton5))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton7)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton8))
-                .addGap(22, 22, 22))
+                    .addComponent(jButton5)
+                    .addComponent(jButton7))
+                .addGap(39, 39, 39)
+                .addComponent(jButton10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton8)
+                    .addComponent(jButton6))
+                .addGap(26, 26, 26))
         );
 
         jButton9.setText("Ir Para Listagem");
@@ -533,6 +544,40 @@ public class PerguntaTela extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_idActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+         if(id.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Registro não informado");
+        }
+        else 
+        {
+            Pergunta p = new Pergunta();
+            p.setId(Integer.parseInt(id.getText()));
+            p.setEnunciado(enunciado.getText());
+            p.setA(a.getText());
+            p.setB(b.getText());
+            p.setC(c.getText());
+            p.setD(d.getText());
+            p.setCerta(selecao.getSelectedItem().toString());
+            p.setNivel(Integer.parseInt(selecaonivel.getSelectedItem().toString()));
+            
+            
+            PerguntaDAO dao = new PerguntaDAO();
+            boolean deucerto;
+            deucerto = dao.atualizar(p);
+            if (deucerto == true )
+                    {
+                        JOptionPane.showMessageDialog(null,"Registro alterado com sucesso");
+                    }
+            else
+            {
+                JOptionPane.showMessageDialog(null, " Erro ao alterar o registro");
+            }
+            lista= dao.listar();
+        }
+
+    }//GEN-LAST:event_jButton10ActionPerformed
+
     
      private void Limpar (){
     id.setText(null);
@@ -587,6 +632,7 @@ public class PerguntaTela extends javax.swing.JFrame {
     private javax.swing.JTextField enunciado;
     private javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

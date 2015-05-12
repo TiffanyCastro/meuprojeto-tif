@@ -40,6 +40,7 @@ public class JogadorTela extends javax.swing.JFrame {
         Excluir = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
@@ -87,7 +88,7 @@ public class JogadorTela extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(95, 95, 95))
         );
@@ -143,22 +144,30 @@ public class JogadorTela extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setText("Atualizar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
+                .addGap(58, 58, 58)
                 .addComponent(Excluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton8)
-                .addGap(25, 25, 25))
+                .addGap(66, 66, 66))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addGap(72, 72, 72)
                 .addComponent(jButton7)
-                .addGap(104, 104, 104))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,15 +175,13 @@ public class JogadorTela extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
-                    .addComponent(jButton7))
+                    .addComponent(jButton7)
+                    .addComponent(jButton6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(Excluir)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton8)
-                        .addGap(28, 28, 28))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton8)
+                    .addComponent(Excluir))
+                .addGap(28, 28, 28))
         );
 
         jButton9.setText("Ir Para Listagem");
@@ -398,6 +405,34 @@ public class JogadorTela extends javax.swing.JFrame {
           tela.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        if(nome.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "Registro não informado");
+        }
+        else 
+        {
+            Jogador j = new Jogador();
+            j.setNome(nome.getText());
+            j.setSenha(senha.getText());
+            j.setEmail(email.getText());
+            
+            JogadorDAO dao = new JogadorDAO();
+            boolean deucerto;
+            deucerto = dao.atualizar(j);
+            if (deucerto == true )
+                    {
+                        JOptionPane.showMessageDialog(null,"Registro alterado com sucesso");
+                    }
+            else
+            {
+                JOptionPane.showMessageDialog(null, " Erro ao alterar o registro");
+            }
+            lista= dao.listar();
+        }
+
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     
     private void Limpar (){
     nome.setText(null);
@@ -444,6 +479,7 @@ public class JogadorTela extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
